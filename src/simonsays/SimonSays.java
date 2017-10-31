@@ -11,7 +11,7 @@ public class SimonSays extends JFrame implements Runnable {
     boolean animateFirstTime = true;
     Image image;
     Graphics2D g;
-
+//I am editing this
 
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
