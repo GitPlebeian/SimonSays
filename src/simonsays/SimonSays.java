@@ -12,7 +12,7 @@ public class SimonSays extends JFrame implements Runnable {
     Image image;
     Graphics2D g;
 //I am editing this
-
+//Hi 
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
         frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
