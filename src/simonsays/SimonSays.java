@@ -11,9 +11,7 @@ public class SimonSays extends JFrame implements Runnable {
     boolean animateFirstTime = true;
     Image image;
     Graphics2D g;
-//I am editing this
-    //ruiguiwrehguiwhrei
-//Hi 
+
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
         frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
@@ -29,7 +27,7 @@ public class SimonSays extends JFrame implements Runnable {
                     
                     
                     Board.AddPiecePixel(e.getX(),e.getY());
-                    Board.CheckWin();
+                    
                     
                     
                 }

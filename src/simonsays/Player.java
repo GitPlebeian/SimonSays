@@ -7,6 +7,8 @@ public class Player {
     private static Player players[] = new Player[2];
     private int points;
     private Color color;
+       
+
     public static void Reset() {
         if (players[0] == null) {
             players[0] = new Player(Color.black);

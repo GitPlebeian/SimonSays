@@ -5,10 +5,12 @@ import java.awt.*;
 public class Board {
     private final static int NUM_CONNECT_WIN = 4;    
     
+
     private static int NUM_ROWS = 3;
     private static int NUM_COLUMNS = 3;      
     private static int NUM_CLICKS = 0;
     private static boolean gameOver = false;
+
     private static Piece board[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
 
     private static Player winner = null;
@@ -26,282 +28,6 @@ public class Board {
         gameOver = true;
 
     }
-    
-    public static void CheckWin() {
-        
-        if (winner != null)
-            return;
-        
-        winner = checkWinWholeBoard();
-    }
-    public static void ResetClicks(){
-        if(gameOver)
-            NUM_CLICKS = 0;
-    }
-
-    public static Player checkWinWholeBoard()
-    {
-        int numConsecutive = 0;
-        Color colorMatch = null;
-
-        int totalPoints = 0;
-//Check for horizontal win.        
-        for (int row=0;row<NUM_ROWS;row++)
-        {
-            for (int col=0;col<NUM_COLUMNS;col++)
-            {
-
-                if (board[row][col] == null)
-                {        
-                    numConsecutive = 0;
-                    totalPoints = 0;
-                    colorMatch = null;
-                }
-                else if (board[row][col].getColor() == colorMatch)
-                {   
-                    numConsecutive++;      
-                    
-                    if (numConsecutive == NUM_CONNECT_WIN)
-                    {
-                        Player.getOtherPlayer().addPoints(totalPoints);
-                        return(Player.getOtherPlayer());
-                    }
-                }
-                else if (board[row][col].getColor() != colorMatch)
-                {                                   
-                    numConsecutive = 1;
-                   
-                    colorMatch = board[row][col].getColor();
-                }        
-             
-            }            
-            colorMatch = null;
-            numConsecutive = 0; 
-            totalPoints = 0;
-        }
-        
-//Check for vertical win.       
-        colorMatch = null;
-        numConsecutive = 0;        
-        totalPoints = 0;
-        for (int col=0;col<NUM_COLUMNS;col++)
-        {
-            for (int row=0;row<NUM_ROWS;row++)
-            {
-
-                if (board[row][col] == null)
-                {        
-                    numConsecutive = 0;
-                    totalPoints = 0;
-                    colorMatch = null;
-                }
-                else if (board[row][col].getColor() == colorMatch)
-                {   
-                    numConsecutive++;                    
-                  
-                    
-                    if (numConsecutive == NUM_CONNECT_WIN)
-                    {
-                        Player.getOtherPlayer().addPoints(totalPoints);
-                        return(Player.getOtherPlayer());
-
-                    }
-                }
-                else if (board[row][col].getColor() != colorMatch)
-                {                                   
-                    numConsecutive = 1;
-                 
-                    
-                    colorMatch = board[row][col].getColor();
-                }        
-                             
-                
-     
-            }            
-            colorMatch = null;
-            numConsecutive = 0;        
-            totalPoints = 0;
-            
-        }    
-        
-//Check for diagonal win to the right and up.
-        colorMatch = null;
-        numConsecutive = 0;
-        totalPoints = 0;
-        for (int zrow=0;zrow<NUM_ROWS;zrow++)
-        {
-            int row = zrow;
-            for (int col=0;row>=0;col++)
-            {
-
-                if (board[row][col] == null)
-                {        
-                    numConsecutive = 0;
-                    totalPoints = 0;
-                    
-                    colorMatch = null;
-                }
-                else if (board[row][col].getColor() == colorMatch)
-                {   
-                    numConsecutive++;                    
-               
-                    
-                    if (numConsecutive == NUM_CONNECT_WIN)
-                    {
-                        Player.getOtherPlayer().addPoints(totalPoints);
-                        return(Player.getOtherPlayer());
-
-                    }
-                }
-                else if (board[row][col].getColor() != colorMatch)
-                {                                   
-                    numConsecutive = 1;
-           
-                    colorMatch = board[row][col].getColor();
-                }        
-             
-
-                row--;
-            }
-            colorMatch = null;
-            numConsecutive = 0;        
-            totalPoints = 0;
-
-        }
-        
-        colorMatch = null;
-        numConsecutive = 0;
-        totalPoints = 0;
-        for (int zcol=1;zcol<NUM_COLUMNS;zcol++)
-        {
-            int col = zcol;
-            for (int row=NUM_ROWS-1;col<NUM_COLUMNS;row--)
-            {              
-
-                if (board[row][col] == null)
-                {        
-                    numConsecutive = 0;
-                    totalPoints = 0;
-                    colorMatch = null;
-                }
-                else if (board[row][col].getColor() == colorMatch)
-                {   
-                    numConsecutive++;                    
-                    
-                    
-                    if (numConsecutive == NUM_CONNECT_WIN)
-                    {
-                        Player.getOtherPlayer().addPoints(totalPoints);
-                        return(Player.getOtherPlayer());
-
-                    }
-                }
-                else if (board[row][col].getColor() != colorMatch)
-                {                                   
-                    numConsecutive = 1;
-                 
-                    colorMatch = board[row][col].getColor();
-                }        
-             
-     
-                col++;
-            }
-            colorMatch = null;
-            numConsecutive = 0;        
-            totalPoints = 0;
-
-        }
-        
-//Check for diagonal win to the right and down.
-        colorMatch = null;
-        numConsecutive = 0;      
-        totalPoints = 0;
-        
-        for (int zrow=NUM_ROWS-1;zrow>=0;zrow--)
-        {
-            int row = zrow;
-            for (int col=0;row<NUM_ROWS;col++)
-            {
-
-                if (board[row][col] == null)
-                {        
-                    numConsecutive = 0;
-                    totalPoints = 0;
-                    colorMatch = null;
-                }
-                else if (board[row][col].getColor() == colorMatch)
-                {   
-                    numConsecutive++;                    
-                
-                    
-                    if (numConsecutive == NUM_CONNECT_WIN)
-                    {
-                        Player.getOtherPlayer().addPoints(totalPoints);
-                        return(Player.getOtherPlayer());
-
-                    }
-                }
-                else if (board[row][col].getColor() != colorMatch)
-                {                                   
-                    numConsecutive = 1;
-                    
-                    colorMatch = board[row][col].getColor();
-                }        
-              
-     
-                row++;
-            }
-            colorMatch = null;
-            numConsecutive = 0;        
-            totalPoints = 0;
-            
-        }
-        
-        colorMatch = null;
-        numConsecutive = 0;
-        totalPoints = 0;
-        for (int acol=1;acol<NUM_COLUMNS;acol++)
-        {
-            int col = acol;
-            for (int row=0;col<NUM_COLUMNS;row++)
-            {              
-
-                if (board[row][col] == null)
-                {        
-                    numConsecutive = 0;
-                    totalPoints = 0;
-                    colorMatch = null;
-                }
-                else if (board[row][col].getColor() == colorMatch)
-                {   
-                    numConsecutive++;                    
-                  
-                    
-                    if (numConsecutive == NUM_CONNECT_WIN)
-                    {
-                        Player.getOtherPlayer().addPoints(totalPoints);
-                        return(Player.getOtherPlayer());
-
-                    }
-                }
-                else if (board[row][col].getColor() != colorMatch)
-                {                                   
-                    numConsecutive = 1;
-                   
-                    colorMatch = board[row][col].getColor();
-                }        
-                   
-                
-                col++;
-            }
-            colorMatch = null;
-            numConsecutive = 0;        
-            totalPoints = 0;
-        }
-             
-        return (null);
-    }        
-    
     public static void AddPiecePixel(int xpixel,int ypixel) {
         
         if (winner != null)
@@ -334,7 +60,6 @@ public class Board {
                         Player.switchTurn();
 
             }
-            
             else
             {
                 int i= NUM_ROWS-1;
@@ -348,72 +73,6 @@ public class Board {
                 }
             }
         }
-        if(xpixel > 0 &&
-           xpixel < Window.getXBORDER())
-        {
-            for(int pie = 30;pie > 0;pie--)
-                {
-                   for (int row=0;row<NUM_ROWS;row++)
-                
-        {
-            for (int col=0;col<NUM_COLUMNS;col++)
-            {
-                if(board[row][col] != null)
-                {
-                    System.out.println("Looking at piece " + row + " " + col);
-                    for(int i = col;i > 0 ;i--)
-                    {
-                        System.out.println("In looping code " + row + " " + col);
-                        if(col - 1 >= 0 && board[row][col - 1] == null)
-                        {
-                            System.out.println("in changing code");
-                            
-                            board[row][i - 1] = board[row][col];
-                            board[row][col] = null;
-                            System.out.println("" + board[row][col]);
-                        }
-                            
-                    }
-                }
-                
-            }
-        } 
-                }
-            
-            
-        }
-        if(xpixel > Window.getWindowWidth() - Window.getXBORDER()){
-            System.out.println("test");
-                for(int pie = 30;pie > 0;pie--)
-                {
-                   for (int row=NUM_ROWS - 1;row >= 0;row--)
-                
-        {
-            for (int col=NUM_COLUMNS - 1;col>=0;col--)
-            {
-                if(board[row][col] != null)
-                {
-                    System.out.println("Looking at piece " + row + " " + col);
-                    for(int i = col;i <= NUM_COLUMNS ;i++)
-                    {
-                        System.out.println("In looping code " + row + " " + col);
-                        if(col + 1 < NUM_COLUMNS && board[row][col + 1] == null)
-                        {
-                            System.out.println("in changing code");
-                            
-                            board[row][i + 1] = board[row][col];
-                            board[row][col] = null;
-                            System.out.println("" + board[row][col]);
-                        }
-                            
-                    }
-                }
-                
-            }
-        } 
-                }
-        }
-        
     }
 
     public static void Draw(Graphics2D g) {
@@ -446,30 +105,30 @@ public class Board {
             }
         } 
         
-        g.setFont(new Font("Arial",Font.PLAIN,20));
-        g.setColor(Player.getPlayer1().getColor());
-        g.drawString("Player1 = " + Player.getPlayer1().getPoints(), 25,70);              
-        g.setColor(Player.getPlayer2().getColor());
-        g.drawString("Player2 = " + Player.getPlayer2().getPoints(), 520,70);              
-        
-        if (winner == Player.getPlayer1()) {
-            g.setColor(Player.getPlayer1().getColor());
-            g.setFont(new Font("Arial",Font.PLAIN,30));
-            g.drawString("Player 1 has Won", 200,70);              
-        }
-        else if (winner == Player.getPlayer2()) {
-            g.setColor(Player.getPlayer2().getColor());
-            g.setFont(new Font("Arial",Font.PLAIN,30));
-            g.drawString("Player 2 has Won", 200,70);              
-        }
-        else {
+//        g.setFont(new Font("Arial",Font.PLAIN,20));
+//        g.setColor(Player.getPlayer1().getColor());
+//        g.drawString("Player1 = " + Player.getPlayer1().getPoints(), 25,70);              
+//        g.setColor(Player.getPlayer2().getColor());
+//        g.drawString("Player2 = " + Player.getPlayer2().getPoints(), 520,70);              
+//        
+//        if (winner == Player.getPlayer1()) {
+//            g.setColor(Player.getPlayer1().getColor());
+//            g.setFont(new Font("Arial",Font.PLAIN,30));
+//            g.drawString("Player 1 has Won", 200,70);              
+//        }
+//        else if (winner == Player.getPlayer2()) {
+//            g.setColor(Player.getPlayer2().getColor());
+//            g.setFont(new Font("Arial",Font.PLAIN,30));
+//            g.drawString("Player 2 has Won", 200,70);              
+//        }
+//        else {
             g.setColor(Player.getCurrentPlayer().getColor());
             g.setFont(new Font("Arial",Font.PLAIN,30));
             if (Player.getCurrentPlayer() == Player.getPlayer1())
                 g.drawString("Player 1's turn", 200,70);              
             else
                 g.drawString("Player 2's turn", 200,70);              
-        }
+//        }
         
     }
 }
