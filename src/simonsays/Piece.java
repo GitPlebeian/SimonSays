@@ -4,6 +4,7 @@ import java.awt.*;
 public class Piece {
     private Color color;
     private int value;
+    //geruighruigheuirhguierhguie
     
     Piece(Color _color)
     {
