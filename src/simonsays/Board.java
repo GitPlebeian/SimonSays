@@ -5,8 +5,10 @@ import java.awt.*;
 public class Board {
     private final static int NUM_CONNECT_WIN = 4;    
     
-    private final static int NUM_ROWS = 8;
-    private final static int NUM_COLUMNS = 8;      
+    private static int NUM_ROWS = 3;
+    private static int NUM_COLUMNS = 3;      
+    private static int NUM_CLICKS = 0;
+    private static boolean gameOver = false;
     private static Piece board[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
 
     private static Player winner = null;
@@ -21,6 +23,7 @@ public class Board {
             }
         }
         winner = null;
+        gameOver = true;
 
     }
     
@@ -31,7 +34,10 @@ public class Board {
         
         winner = checkWinWholeBoard();
     }
-    
+    public static void ResetClicks(){
+        if(gameOver)
+            NUM_CLICKS = 0;
+    }
 
     public static Player checkWinWholeBoard()
     {
@@ -54,7 +60,7 @@ public class Board {
                 else if (board[row][col].getColor() == colorMatch)
                 {   
                     numConsecutive++;      
-                    totalPoints += board[row][col].getValue();
+                    
                     if (numConsecutive == NUM_CONNECT_WIN)
                     {
                         Player.getOtherPlayer().addPoints(totalPoints);
@@ -64,7 +70,7 @@ public class Board {
                 else if (board[row][col].getColor() != colorMatch)
                 {                                   
                     numConsecutive = 1;
-                    totalPoints = board[row][col].getValue();
+                   
                     colorMatch = board[row][col].getColor();
                 }        
              
@@ -92,7 +98,7 @@ public class Board {
                 else if (board[row][col].getColor() == colorMatch)
                 {   
                     numConsecutive++;                    
-                    totalPoints += board[row][col].getValue();
+                  
                     
                     if (numConsecutive == NUM_CONNECT_WIN)
                     {
@@ -104,7 +110,7 @@ public class Board {
                 else if (board[row][col].getColor() != colorMatch)
                 {                                   
                     numConsecutive = 1;
-                    totalPoints = board[row][col].getValue();
+                 
                     
                     colorMatch = board[row][col].getColor();
                 }        
@@ -138,7 +144,7 @@ public class Board {
                 else if (board[row][col].getColor() == colorMatch)
                 {   
                     numConsecutive++;                    
-                    totalPoints += board[row][col].getValue();
+               
                     
                     if (numConsecutive == NUM_CONNECT_WIN)
                     {
@@ -150,7 +156,7 @@ public class Board {
                 else if (board[row][col].getColor() != colorMatch)
                 {                                   
                     numConsecutive = 1;
-                    totalPoints = board[row][col].getValue();
+           
                     colorMatch = board[row][col].getColor();
                 }        
              
@@ -181,7 +187,7 @@ public class Board {
                 else if (board[row][col].getColor() == colorMatch)
                 {   
                     numConsecutive++;                    
-                    totalPoints += board[row][col].getValue();
+                    
                     
                     if (numConsecutive == NUM_CONNECT_WIN)
                     {
@@ -193,7 +199,7 @@ public class Board {
                 else if (board[row][col].getColor() != colorMatch)
                 {                                   
                     numConsecutive = 1;
-                    totalPoints = board[row][col].getValue();
+                 
                     colorMatch = board[row][col].getColor();
                 }        
              
@@ -226,7 +232,7 @@ public class Board {
                 else if (board[row][col].getColor() == colorMatch)
                 {   
                     numConsecutive++;                    
-                    totalPoints += board[row][col].getValue();
+                
                     
                     if (numConsecutive == NUM_CONNECT_WIN)
                     {
@@ -238,7 +244,7 @@ public class Board {
                 else if (board[row][col].getColor() != colorMatch)
                 {                                   
                     numConsecutive = 1;
-                    totalPoints = board[row][col].getValue();
+                    
                     colorMatch = board[row][col].getColor();
                 }        
               
@@ -269,7 +275,7 @@ public class Board {
                 else if (board[row][col].getColor() == colorMatch)
                 {   
                     numConsecutive++;                    
-                    totalPoints += board[row][col].getValue();
+                  
                     
                     if (numConsecutive == NUM_CONNECT_WIN)
                     {
@@ -281,7 +287,7 @@ public class Board {
                 else if (board[row][col].getColor() != colorMatch)
                 {                                   
                     numConsecutive = 1;
-                    totalPoints = board[row][col].getValue();
+                   
                     colorMatch = board[row][col].getColor();
                 }        
                    
@@ -300,6 +306,7 @@ public class Board {
         
         if (winner != null)
             return;
+        NUM_CLICKS++;
         
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
@@ -323,7 +330,8 @@ public class Board {
                     board[i+1][zcol] =  board[i][zcol];
                 }
                 board[i+1][zcol] = null;
-                Player.switchTurn();
+                if(NUM_CLICKS >= NUM_ROWS)
+                        Player.switchTurn();
 
             }
             
@@ -333,7 +341,10 @@ public class Board {
                 for (;i>-1 && board[i][zcol] != null;i--);
                 if (i >= 0) {
                     board[i][zcol] = new Piece(Player.getCurrentPlayer().getColor());
-                    Player.switchTurn();
+                    if(NUM_CLICKS >= NUM_ROWS)
+                        Player.switchTurn();
+                    if(NUM_CLICKS > NUM_ROWS)
+                        NUM_CLICKS = 0;
                 }
             }
         }

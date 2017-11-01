@@ -31,6 +31,7 @@ public class SimonSays extends JFrame implements Runnable {
                     Board.AddPiecePixel(e.getX(),e.getY());
                     Board.CheckWin();
                     
+                    
                 }
 
                 if (e.BUTTON3 == e.getButton()) {

@@ -2,7 +2,6 @@
 package simonsays;
 
 import java.awt.Color;
-// asd;lfkasjdtaldht this is a change
 public class Player {
     private static Player currentTurn;
     private static Player players[] = new Player[2];
