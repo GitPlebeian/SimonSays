@@ -12,33 +12,49 @@ public class Board {
     private static int NUM_CLICKS = 0;
     private static boolean gameOver = false;
     
-    private static ArrayList<Piece[]> Player1Board = new ArrayList<Piece[]>(); 
-    private static ArrayList<Piece[]> Player2Board = new ArrayList<Piece[]>(); 
-
+    private static ArrayList<Piece[]> PlayerBoard = new ArrayList<Piece[]>(); 
+    private static ArrayList<int[]> Player1Board = new ArrayList<int[]>(); 
+    private static ArrayList<int[]> Player2Board = new ArrayList<int[]>(); 
 
     private static Player winner = null;
     
     public static void Reset() {
-        w.w("RESETING BOARD!");
         NUM_ROWS = 3;
         NUM_COLUMNS = 3;
+        w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
-        ChangeBoardSize(NUM_ROWS);
+//        for (int zi = 0;zi<NUM_ROWS;zi++)
+//        {
+//            for (int zx = 0;zx<NUM_COLUMNS;zx++)
+//            {
+//                board[zi][zx] = null;
+//            }
+//        }
+        winner = null;
+//        gameOver = true;
+          ChangeBoardSize(NUM_ROWS);
+          for(int i = 0;i < PlayerBoard.size();i++)
+          {
+              for(int j = 0;j < PlayerBoard.get(i).length;j++)
+              {
+                  PlayerBoard.get(i)[j] = null;
+              }
+          }
           
     }
     public static void ChangeBoardSize(int size){
         
-        Player1Board.clear();
+        PlayerBoard.clear();
           for(int i = 0;i < NUM_ROWS;i++)
           {
               w.w("Adding row");
               AddRow(NUM_COLUMNS);
           }
-          for(int i = 0;i < Player1Board.size();i++)
+          for(int i = 0;i < PlayerBoard.size();i++)
           {
-              for(int j = 0;j < Player1Board.get(i).length;j++)
+              for(int j = 0;j < PlayerBoard.get(i).length;j++)
               {
-                  Player1Board.get(i)[j] = null;
+                  PlayerBoard.get(i)[j] = null;
               }
           }
           
@@ -47,7 +63,7 @@ public class Board {
     public static void AddRow(int size){
         Piece[] obj = new Piece[size];
         w.w("Adding Column");
-        Player1Board.add(obj);
+        PlayerBoard.add(obj);
     }
     public static void AddPiecePixel(int xpixel,int ypixel) {
         
@@ -74,12 +90,12 @@ public class Board {
             w.w("Rows = " + zrow);
             w.w("Columns = " + zcol);
             
-            w.w("PlayerBoard row size = " + Player1Board.size());
-            if (Player1Board.get(zrow)[zcol] == null)
+            w.w("PlayerBoard row size = " + PlayerBoard.size());
+            if (PlayerBoard.get(zrow)[zcol] == null)
             { 
                // w.w("MADE IT");
                     NUM_CLICKS++;
-                    Player1Board.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
+                    PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     if(NUM_CLICKS >= NUM_ROWS)
                     {
                         Player.switchTurn();
@@ -115,13 +131,13 @@ public class Board {
                     Window.getX(zi*xdelta),Window.getY(Window.getHeight2()));
         }
                 
-        for (int zi = 0;zi<Player1Board.size();zi++)
+        for (int zi = 0;zi<PlayerBoard.size();zi++)
         {
-            for (int zx = 0;zx<Player1Board.get(zi).length;zx++)
+            for (int zx = 0;zx<PlayerBoard.get(zi).length;zx++)
             {
-                if (Player1Board.get(zi)[zx] != null)
+                if (PlayerBoard.get(zi)[zx] != null)
                 {
-                    Player1Board.get(zi)[zx].draw(g,zi,zx,xdelta,ydelta);
+                    PlayerBoard.get(zi)[zx].draw(g,zi,zx,xdelta,ydelta);
                 }
             }
         } 
