@@ -7,43 +7,53 @@ public class Board {
     private final static int NUM_CONNECT_WIN = 4;    
     
 
-    private static int NUM_ROWS = 3;
-    private static int NUM_COLUMNS = 3;      
+    private static int NUM_ROWS = 5;
+    private static int NUM_COLUMNS = 5;      
     private static int NUM_CLICKS = 0;
     private static boolean gameOver = false;
     
     private static ArrayList<Piece[]> Player1Board = new ArrayList<Piece[]>(); 
-    private static Piece board[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
+    private static ArrayList<Piece[]> Player2Board = new ArrayList<Piece[]>(); 
+
 
     private static Player winner = null;
     
     public static void Reset() {
- 
-//        for (int zi = 0;zi<NUM_ROWS;zi++)
-//        {
-//            for (int zx = 0;zx<NUM_COLUMNS;zx++)
-//            {
-//                board[zi][zx] = null;
-//            }
-//        }
-//        winner = null;
-//        gameOver = true;
-          for(int i = 0;i < NUM_ROWS;i++)
-          {
-              ChangeBoardSize(NUM_COLUMNS);
-          }
+        w.w("RESETING BOARD!");
+        NUM_ROWS = 3;
+        NUM_COLUMNS = 3;
+        NUM_CLICKS = 0;
+        ChangeBoardSize(NUM_ROWS);
           
     }
     public static void ChangeBoardSize(int size){
+        
         Player1Board.clear();
+          for(int i = 0;i < NUM_ROWS;i++)
+          {
+              w.w("Adding row");
+              AddRow(NUM_COLUMNS);
+          }
+          for(int i = 0;i < Player1Board.size();i++)
+          {
+              for(int j = 0;j < Player1Board.get(i).length;j++)
+              {
+                  Player1Board.get(i)[j] = null;
+              }
+          }
+          
+ 
+    }
+    public static void AddRow(int size){
         Piece[] obj = new Piece[size];
-        Player1Board.add(obj);    
+        w.w("Adding Column");
+        Player1Board.add(obj);
     }
     public static void AddPiecePixel(int xpixel,int ypixel) {
         
         if (winner != null)
             return;
-        NUM_CLICKS++;
+        
         
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
@@ -60,22 +70,29 @@ public class Board {
             zrow = (ypixel-Window.getY(0))/ydelta;
 
             Color currentColor = Player.getCurrentPlayer().getColor();
-            if (board[zrow][zcol] != null && board[zrow][zcol].getColor() != currentColor)
-            {
-            }
-            else
-            {
-                int i= NUM_ROWS-1;
-                for (;i>-1 && board[i][zcol] != null;i--);
-                if (i >= 0) {
-                    board[i][zcol] = new Piece(Player.getCurrentPlayer().getColor());
+            w.w("");
+            w.w("Rows = " + zrow);
+            w.w("Columns = " + zcol);
+            
+            w.w("PlayerBoard row size = " + Player1Board.size());
+            if (Player1Board.get(zrow)[zcol] == null)
+            { 
+               // w.w("MADE IT");
+                    NUM_CLICKS++;
+                    Player1Board.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     if(NUM_CLICKS >= NUM_ROWS)
+                    {
                         Player.switchTurn();
-                    if(NUM_CLICKS > NUM_ROWS)
                         NUM_CLICKS = 0;
-                }
+                        NUM_ROWS++;
+                        NUM_COLUMNS++;
+                        ChangeBoardSize(NUM_ROWS);
+                        w.w("Rows " + NUM_ROWS);
+                        w.w("Columns " + NUM_COLUMNS);
+                    }
+                         
             }
-            Player1Board.get(1)[1] = new Piece(Player.getCurrentPlayer().getColor());
+            
         }
     }
 
@@ -98,13 +115,13 @@ public class Board {
                     Window.getX(zi*xdelta),Window.getY(Window.getHeight2()));
         }
                 
-        for (int zi = 0;zi<NUM_ROWS;zi++)
+        for (int zi = 0;zi<Player1Board.size();zi++)
         {
-            for (int zx = 0;zx<NUM_COLUMNS;zx++)
+            for (int zx = 0;zx<Player1Board.get(zi).length;zx++)
             {
-                if (board[zi][zx] != null)
+                if (Player1Board.get(zi)[zx] != null)
                 {
-                    board[zi][zx].draw(g,zi,zx,xdelta,ydelta);
+                    Player1Board.get(zi)[zx].draw(g,zi,zx,xdelta,ydelta);
                 }
             }
         } 
