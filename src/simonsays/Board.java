@@ -19,16 +19,20 @@ public class Board {
     
     public static void Reset() {
  
-        for (int zi = 0;zi<NUM_ROWS;zi++)
-        {
-            for (int zx = 0;zx<NUM_COLUMNS;zx++)
-            {
-                board[zi][zx] = null;
-            }
-        }
-        winner = null;
-        gameOver = true;
-
+//        for (int zi = 0;zi<NUM_ROWS;zi++)
+//        {
+//            for (int zx = 0;zx<NUM_COLUMNS;zx++)
+//            {
+//                board[zi][zx] = null;
+//            }
+//        }
+//        winner = null;
+//        gameOver = true;
+          for(int i = 0;i < NUM_ROWS;i++)
+          {
+              ChangeBoardSize(NUM_COLUMNS);
+          }
+          
     }
     public static void ChangeBoardSize(int size){
         Player1Board.clear();
@@ -58,14 +62,6 @@ public class Board {
             Color currentColor = Player.getCurrentPlayer().getColor();
             if (board[zrow][zcol] != null && board[zrow][zcol].getColor() != currentColor)
             {
-                int i=zrow-1;
-                for (;i >=0 && board[i][zcol] != null;i--) {
-                    board[i+1][zcol] =  board[i][zcol];
-                }
-                board[i+1][zcol] = null;
-                if(NUM_CLICKS >= NUM_ROWS)
-                        Player.switchTurn();
-
             }
             else
             {
