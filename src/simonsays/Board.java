@@ -1,6 +1,7 @@
 
 package simonsays;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Board {
     private final static int NUM_CONNECT_WIN = 4;    
@@ -10,7 +11,8 @@ public class Board {
     private static int NUM_COLUMNS = 3;      
     private static int NUM_CLICKS = 0;
     private static boolean gameOver = false;
-
+    
+    private static ArrayList<Piece[]> Player1Board = new ArrayList<Piece[]>(); 
     private static Piece board[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
 
     private static Player winner = null;
@@ -27,6 +29,11 @@ public class Board {
         winner = null;
         gameOver = true;
 
+    }
+    public static void ChangeBoardSize(int size){
+        Player1Board.clear();
+        Piece[] obj = new Piece[size];
+        Player1Board.add(obj);    
     }
     public static void AddPiecePixel(int xpixel,int ypixel) {
         
@@ -72,6 +79,7 @@ public class Board {
                         NUM_CLICKS = 0;
                 }
             }
+            Player1Board.get(1)[1] = new Piece(Player.getCurrentPlayer().getColor());
         }
     }
 
