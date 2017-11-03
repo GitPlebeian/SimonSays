@@ -7,10 +7,11 @@ public class Board {
     private final static int NUM_CONNECT_WIN = 4;    
     
 
-    private static int NUM_ROWS = 5;
+    public static int NUM_ROWS = 5;
     private static int NUM_COLUMNS = 5;      
     private static int NUM_CLICKS = 0;
     private static boolean gameOver = false;
+    public static boolean resetBoard;
     
     private static ArrayList<Piece[]> PlayerBoard = new ArrayList<Piece[]>(); 
     private static ArrayList<boolean[]> Player1Board = new ArrayList<boolean[]>(); 
@@ -21,13 +22,12 @@ public class Board {
     public static void Reset() {
         NUM_ROWS = 3;
         NUM_COLUMNS = 3;
-        w.w("RESETING BOARD!");
+        //w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
         winner = null;
         ChangeBoardSize(NUM_ROWS);
         ChangePlayerBoard(NUM_ROWS);
-        Player1Board.clear();
-        Player2Board.clear();
+        resetBoard = false;
         
     }
         public static void ChangePlayerBoard(int size){
@@ -49,20 +49,20 @@ public class Board {
         PlayerBoard.clear();
           for(int i = 0;i < NUM_ROWS;i++)
           {
-              w.w("Adding row");
+            //  w.w("Adding row");
               AddRow(NUM_COLUMNS);
           }
     }
     public static void AddRow(int size){
         Piece[] obj = new Piece[size];
-        w.w("Adding Column");
+       // w.w("Adding Column");
         PlayerBoard.add(obj);
     }
     public static void AddPiecePixel(int xpixel,int ypixel,Graphics2D g) {
         
         if (winner != null)
             return;
-        
+        NUM_CLICKS++;
         
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
@@ -87,9 +87,20 @@ public class Board {
             if (PlayerBoard.get(zrow)[zcol] == null)
             { 
                // w.w("MADE IT");
-                    NUM_CLICKS++;
-                    PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     
+                    PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
+                    if(Player.getCurrentPlayer().getColor() == Color.BLACK)
+                    {
+                        w.w("Storing into Player 1");
+                                
+                        Player1Board.get(zrow)[zcol] = true;
+                    }
+                    else
+                    {
+                        w.w("Storing into Player 2");
+                        Player2Board.get(zrow)[zcol] = true;
+                    }
+            }
                     if(NUM_CLICKS >= NUM_ROWS)
                     { 
                       
@@ -98,18 +109,19 @@ public class Board {
                         NUM_CLICKS = 0;
                        // NUM_ROWS++;
                        // NUM_COLUMNS++;
+                        resetBoard = true;
                         ChangeBoardSize(NUM_ROWS);
                         ChangePlayerBoard(NUM_ROWS);
                         w.w("Rows " + NUM_ROWS);
                         w.w("Columns " + NUM_COLUMNS);
                     }
                          
-            }
+            
             
         }
     }
 
-    public static void Draw(Graphics2D g) {
+    public static void Draw(Graphics2D g,int timeCount) {
 //Calculate the width and height of each board square.
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
@@ -134,7 +146,7 @@ public class Board {
             {
                 if (PlayerBoard.get(zi)[zx] != null)
                 {
-                    PlayerBoard.get(zi)[zx].draw(g,zi,zx,xdelta,ydelta);
+                    PlayerBoard.get(zi)[zx].draw(g,zi,zx,xdelta,ydelta,timeCount);
                 }
             }
         } 

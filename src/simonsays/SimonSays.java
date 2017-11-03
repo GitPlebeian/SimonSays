@@ -11,7 +11,7 @@ public class SimonSays extends JFrame implements Runnable {
     boolean animateFirstTime = true;
     Image image;
     Graphics2D g;
-    int timeCount=0;
+    static int timeCount=0;
 
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
@@ -109,8 +109,8 @@ public class SimonSays extends JFrame implements Runnable {
         }
         
               
-        Board.Draw(g);
-        timeCount++;
+        Board.Draw(g,timeCount);
+        
 
         gOld.drawImage(image, 0, 0, null);
     }
@@ -148,13 +148,9 @@ public class SimonSays extends JFrame implements Runnable {
 
             reset();
 
+            
         }
- try {
-            Thread.sleep(1);
-        } catch (InterruptedException ie)
-        {
-            System.out.println("Scanning...");
-        }
+timeCount++;
 
     
         

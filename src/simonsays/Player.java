@@ -22,6 +22,8 @@ public class Player {
     Player(Color _color) {
         points = 0;
         color = _color;
+        inSelection = true;
+        allDone = false;
     }
     public Color getColor() {
         return (color);
