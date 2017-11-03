@@ -58,7 +58,7 @@ public class Board {
         w.w("Adding Column");
         PlayerBoard.add(obj);
     }
-    public static void AddPiecePixel(int xpixel,int ypixel) {
+    public static void AddPiecePixel(int xpixel,int ypixel,Graphics2D g) {
         
         if (winner != null)
             return;
@@ -91,7 +91,9 @@ public class Board {
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     
                     if(NUM_CLICKS >= NUM_ROWS)
-                    {
+                    { 
+                      
+                        
                         Player.switchTurn();
                         NUM_CLICKS = 0;
                        // NUM_ROWS++;

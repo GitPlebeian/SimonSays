@@ -11,6 +11,7 @@ public class SimonSays extends JFrame implements Runnable {
     boolean animateFirstTime = true;
     Image image;
     Graphics2D g;
+    int timeCount=0;
 
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
@@ -26,7 +27,7 @@ public class SimonSays extends JFrame implements Runnable {
                 if (e.BUTTON1 == e.getButton() ) {
                     
                     
-                    Board.AddPiecePixel(e.getX(),e.getY());
+                    Board.AddPiecePixel(e.getX(),e.getY(),g);
                     
                     
                     
@@ -109,6 +110,7 @@ public class SimonSays extends JFrame implements Runnable {
         
               
         Board.Draw(g);
+        timeCount++;
 
         gOld.drawImage(image, 0, 0, null);
     }
@@ -132,6 +134,7 @@ public class SimonSays extends JFrame implements Runnable {
     public void reset() {
         Player.Reset();
         Board.Reset();
+        timeCount = 0;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -146,7 +149,14 @@ public class SimonSays extends JFrame implements Runnable {
             reset();
 
         }
+ try {
+            Thread.sleep(1);
+        } catch (InterruptedException ie)
+        {
+            System.out.println("Scanning...");
+        }
 
+    
         
     }
 
