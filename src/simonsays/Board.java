@@ -13,8 +13,8 @@ public class Board {
     private static boolean gameOver = false;
     
     private static ArrayList<Piece[]> PlayerBoard = new ArrayList<Piece[]>(); 
-    private static ArrayList<int[]> Player1Board = new ArrayList<int[]>(); 
-    private static ArrayList<int[]> Player2Board = new ArrayList<int[]>(); 
+    private static ArrayList<boolean[]> Player1Board = new ArrayList<boolean[]>(); 
+    private static ArrayList<boolean[]> Player2Board = new ArrayList<boolean[]>(); 
 
     private static Player winner = null;
     
@@ -23,25 +23,27 @@ public class Board {
         NUM_COLUMNS = 3;
         w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
-//        for (int zi = 0;zi<NUM_ROWS;zi++)
-//        {
-//            for (int zx = 0;zx<NUM_COLUMNS;zx++)
-//            {
-//                board[zi][zx] = null;
-//            }
-//        }
         winner = null;
-//        gameOver = true;
-          ChangeBoardSize(NUM_ROWS);
-          for(int i = 0;i < PlayerBoard.size();i++)
-          {
-              for(int j = 0;j < PlayerBoard.get(i).length;j++)
-              {
-                  PlayerBoard.get(i)[j] = null;
-              }
-          }
-          
+        ChangeBoardSize(NUM_ROWS);
+        ChangePlayerBoard(NUM_ROWS);
+        Player1Board.clear();
+        Player2Board.clear();
+        
     }
+        public static void ChangePlayerBoard(int size){
+            Player1Board.clear();
+            Player2Board.clear();
+            for(int i = 0;i < NUM_ROWS;i++)
+            {   
+                PlayerADD(NUM_COLUMNS);
+            }
+        }
+        private static void PlayerADD(int size){
+            boolean[] obj = new boolean[size];
+            Player1Board.add(obj);
+            boolean[] ptr = new boolean[size];
+            Player2Board.add(ptr);
+        }
     public static void ChangeBoardSize(int size){
         
         PlayerBoard.clear();
@@ -50,15 +52,6 @@ public class Board {
               w.w("Adding row");
               AddRow(NUM_COLUMNS);
           }
-          for(int i = 0;i < PlayerBoard.size();i++)
-          {
-              for(int j = 0;j < PlayerBoard.get(i).length;j++)
-              {
-                  PlayerBoard.get(i)[j] = null;
-              }
-          }
-          
- 
     }
     public static void AddRow(int size){
         Piece[] obj = new Piece[size];
@@ -96,13 +89,15 @@ public class Board {
                // w.w("MADE IT");
                     NUM_CLICKS++;
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
+                    
                     if(NUM_CLICKS >= NUM_ROWS)
                     {
                         Player.switchTurn();
                         NUM_CLICKS = 0;
-                        NUM_ROWS++;
-                        NUM_COLUMNS++;
+                       // NUM_ROWS++;
+                       // NUM_COLUMNS++;
                         ChangeBoardSize(NUM_ROWS);
+                        ChangePlayerBoard(NUM_ROWS);
                         w.w("Rows " + NUM_ROWS);
                         w.w("Columns " + NUM_COLUMNS);
                     }

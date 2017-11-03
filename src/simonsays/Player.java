@@ -7,6 +7,9 @@ public class Player {
     private static Player players[] = new Player[2];
     private int points;
     private Color color;
+    private boolean inSelction;
+    private boolean allDone;
+
        
 
     public static void Reset() {
