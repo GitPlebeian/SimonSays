@@ -173,6 +173,7 @@ public class Board {
             {
                 if (PlayerBoard.get(zi)[zx] != null)
                 {
+   
                     PlayerBoard.get(zi)[zx].draw(g,zi,zx,xdelta,ydelta,timeCount);
                 }
             }
