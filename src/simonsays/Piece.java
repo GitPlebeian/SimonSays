@@ -6,14 +6,13 @@ public class Piece {
     private Color color;
     private int value;
     private boolean draw = true;
-    private int timeCounter = 12;
-    int timeCount;
+
 
     private boolean clicked = false;
 
     Piece(Color _color)
     {
-        int timeCount = 0;
+       SimonSays.timeCount = 0;
         color = _color;
         
     }
@@ -22,19 +21,12 @@ public class Piece {
     {
         return (color);
     }
-    public void addTime(){
-        if(timeCount < timeCounter)
-        for(int i=0; i<timeCounter;i++)
-            timeCount++;
-        w.w("" +timeCount);
-    }
+
     
     
     public void draw(Graphics2D g,int row,int column,
     int xdelta,int ydelta,int timeCount) {
-        addTime();
         g.setColor(color); 
-        addTime();
         if(draw)
             g.fillRect(Window.getX(column*xdelta),Window.getY(row*ydelta),xdelta,ydelta);
             w.w("Timecount = " + timeCount);

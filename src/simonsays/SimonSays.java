@@ -134,7 +134,7 @@ public class SimonSays extends JFrame implements Runnable {
     public void reset() {
         Player.Reset();
         Board.Reset();
-        //timeCount = 0;
+        timeCount = 0;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -150,7 +150,7 @@ public class SimonSays extends JFrame implements Runnable {
 
             
         }
-//timeCount++;
+timeCount++;
 
     
         
