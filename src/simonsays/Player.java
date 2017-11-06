@@ -25,10 +25,21 @@ public class Player {
         inSelection = true;
         allDone = false;
     }
+    public void setInSelection(boolean bool){
+        inSelection = bool;
+    }
+    public void setAllDone(boolean bool){
+        allDone = bool;
+    }
     public Color getColor() {
         return (color);
     }
-    
+    public boolean getInSelection(){
+        return inSelection;
+    }
+    public boolean getAllDone(){
+        return allDone;
+    }
     public void addPoints(int value) {
         points += value;
     }

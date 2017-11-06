@@ -79,27 +79,53 @@ public class Board {
             zrow = (ypixel-Window.getY(0))/ydelta;
 
             Color currentColor = Player.getCurrentPlayer().getColor();
-            w.w("");
-            w.w("Rows = " + zrow);
-            w.w("Columns = " + zcol);
+            //w.w("");
+            //w.w("Rows = " + zrow);
+            //w.w("Columns = " + zcol);
             
-            w.w("PlayerBoard row size = " + PlayerBoard.size());
-            if (PlayerBoard.get(zrow)[zcol] == null)
+            //w.w("PlayerBoard row size = " + PlayerBoard.size());
+            if (PlayerBoard.get(zrow)[zcol] == null && (Player.getCurrentPlayer().getInSelection() || Player.getOtherPlayer().getInSelection()))
             { 
                // w.w("MADE IT");
                     
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     if(Player.getCurrentPlayer().getColor() == Color.BLACK)
                     {
-                        w.w("Storing into Player 1");
+                        //w.w("Storing into Player 1");
                                 
                         Player1Board.get(zrow)[zcol] = true;
                     }
                     else
                     {
-                        w.w("Storing into Player 2");
+                        //w.w("Storing into Player 2");
                         Player2Board.get(zrow)[zcol] = true;
                     }
+            }
+            if(!Player.getCurrentPlayer().getInSelection() && !Player.getOtherPlayer().getInSelection())
+            {
+                if(Player.getCurrentPlayer().getColor() == Color.BLACK)
+                {
+                    PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
+                    if(Player2Board.get(zrow)[zcol] == false)
+                    {
+                        winner = Player.getOtherPlayer();
+                        w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for Black");
+                    }
+                }
+                if(Player.getCurrentPlayer().getColor() == Color.RED)
+                {
+                    PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
+                    if(Player1Board.get(zrow)[zcol] == false)
+                    {
+                        winner = Player.getOtherPlayer();
+                        w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for RED");
+                    }
+                }
+                
+                if(NUM_CLICKS >= NUM_ROWS)
+                {
+                    Player.getCurrentPlayer().setAllDone(true);
+                }
             }
                     if(NUM_CLICKS >= NUM_ROWS)
                     { 
@@ -107,11 +133,12 @@ public class Board {
                         
                         Player.switchTurn();
                         NUM_CLICKS = 0;
-                       // NUM_ROWS++;
-                       // NUM_COLUMNS++;
+                      // NUM_ROWS++;
+                        //NUM_COLUMNS++;
                         resetBoard = true;
+                        Player.getCurrentPlayer().setInSelection(false);
                         ChangeBoardSize(NUM_ROWS);
-                        ChangePlayerBoard(NUM_ROWS);
+                        //ChangePlayerBoard(NUM_ROWS);
                         w.w("Rows " + NUM_ROWS);
                         w.w("Columns " + NUM_COLUMNS);
                     }
@@ -151,30 +178,30 @@ public class Board {
             }
         } 
         
-//        g.setFont(new Font("Arial",Font.PLAIN,20));
-//        g.setColor(Player.getPlayer1().getColor());
-//        g.drawString("Player1 = " + Player.getPlayer1().getPoints(), 25,70);              
-//        g.setColor(Player.getPlayer2().getColor());
-//        g.drawString("Player2 = " + Player.getPlayer2().getPoints(), 520,70);              
-//        
-//        if (winner == Player.getPlayer1()) {
-//            g.setColor(Player.getPlayer1().getColor());
-//            g.setFont(new Font("Arial",Font.PLAIN,30));
-//            g.drawString("Player 1 has Won", 200,70);              
-//        }
-//        else if (winner == Player.getPlayer2()) {
-//            g.setColor(Player.getPlayer2().getColor());
-//            g.setFont(new Font("Arial",Font.PLAIN,30));
-//            g.drawString("Player 2 has Won", 200,70);              
-//        }
-//        else {
+        g.setFont(new Font("Arial",Font.PLAIN,20));
+        g.setColor(Player.getPlayer1().getColor());
+        g.drawString("Player1 = " + Player.getPlayer1().getPoints(), 25,70);              
+        g.setColor(Player.getPlayer2().getColor());
+        g.drawString("Player2 = " + Player.getPlayer2().getPoints(), 520,70);              
+        
+        if (winner == Player.getPlayer1()) {
+            g.setColor(Player.getPlayer1().getColor());
+            g.setFont(new Font("Arial",Font.PLAIN,30));
+            g.drawString("Player 1 has Won", 200,70);              
+        }
+        else if (winner == Player.getPlayer2()) {
+            g.setColor(Player.getPlayer2().getColor());
+            g.setFont(new Font("Arial",Font.PLAIN,30));
+            g.drawString("Player 2 has Won", 200,70);              
+        }
+        else {
             g.setColor(Player.getCurrentPlayer().getColor());
             g.setFont(new Font("Arial",Font.PLAIN,30));
             if (Player.getCurrentPlayer() == Player.getPlayer1())
                 g.drawString("Player 1's turn", 200,70);              
             else
                 g.drawString("Player 2's turn", 200,70);              
-//        }
+      }
         
     }
 }
