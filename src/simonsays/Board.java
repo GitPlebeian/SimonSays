@@ -135,12 +135,18 @@ public class Board {
                         NUM_CLICKS = 0;
                       // NUM_ROWS++;
                         //NUM_COLUMNS++;
-                        resetBoard = true;
+                       /// resetBoard = true;
                         Player.getCurrentPlayer().setInSelection(false);
-                        ChangeBoardSize(NUM_ROWS);
+                        if(!Piece.delay)
+                        {
+                            ChangeBoardSize(NUM_ROWS);
+                            w.w("reseting board");
+                        }
+                        
                         //ChangePlayerBoard(NUM_ROWS);
                         w.w("Rows " + NUM_ROWS);
                         w.w("Columns " + NUM_COLUMNS);
+                        Piece.delay = true;
                     }
                          
             

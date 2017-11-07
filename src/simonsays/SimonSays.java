@@ -26,8 +26,12 @@ public class SimonSays extends JFrame implements Runnable {
 
                 if (e.BUTTON1 == e.getButton() ) {
                     
-                
-                    Board.AddPiecePixel(e.getX(),e.getY(),g);
+                    if(Piece.clicked == false)
+                    {
+                        Board.AddPiecePixel(e.getX(),e.getY(),g);
+                        Piece.clicked = true;
+                    }
+                    
                     
                     
                     
@@ -150,9 +154,10 @@ public class SimonSays extends JFrame implements Runnable {
 
             
         }
-timeCount++;
+    timeCount++;
 
-    
+    if(timeCount % 10 == 9)
+        Piece.clicked = false;
         
     }
 
