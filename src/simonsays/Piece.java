@@ -31,7 +31,7 @@ public class Piece {
         if(draw)
             g.fillRect(Window.getX(column*xdelta),Window.getY(row*ydelta),xdelta,ydelta);
             //w.w("Timecount = " + timeCount);
-        if(timeCount % 10 == 9 && draw == true)
+        if(timeCount % 5 == 4 && draw == true)
         {
           // clicked = false;
             w.w("ENTERING");

@@ -156,7 +156,7 @@ public class SimonSays extends JFrame implements Runnable {
         }
     timeCount++;
 
-    if(timeCount % 10 == 9)
+    if(timeCount % 5 == 4)
         Piece.clicked = false;
         
     }

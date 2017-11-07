@@ -16,7 +16,10 @@ public class Board {
     private static ArrayList<Piece[]> PlayerBoard = new ArrayList<Piece[]>(); 
     private static ArrayList<boolean[]> Player1Board = new ArrayList<boolean[]>(); 
     private static ArrayList<boolean[]> Player2Board = new ArrayList<boolean[]>(); 
-
+     
+    private static int[][][] Player1Ints = new int[1][1][1];
+    private static int[][][] Player2Ints = new int[1][1][1];
+    
     private static Player winner = null;
     
     public static void Reset() {
@@ -25,9 +28,15 @@ public class Board {
         //w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
         winner = null;
+        Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
+        Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
         ChangeBoardSize(NUM_ROWS);
         ChangePlayerBoard(NUM_ROWS);
-        resetBoard = false;
+        Player.getCurrentPlayer().setInSelection(true);
+                        Player.getOtherPlayer().setInSelection(true);
+                        Player.getCurrentPlayer().setAllDone(false);
+                        Player.getOtherPlayer().setAllDone(false);
+        
         
     }
         public static void ChangePlayerBoard(int size){
@@ -37,6 +46,8 @@ public class Board {
             {   
                 PlayerADD(NUM_COLUMNS);
             }
+            Player1Ints = new int[size][size][size];
+            Player2Ints = new int[size][size][size];
         }
         private static void PlayerADD(int size){
             boolean[] obj = new boolean[size];
@@ -92,12 +103,13 @@ public class Board {
                     if(Player.getCurrentPlayer().getColor() == Color.BLACK)
                     {
                         //w.w("Storing into Player 1");
-                                
+                        Player1Ints[zrow][zcol][NUM_CLICKS - 1] = NUM_CLICKS;       
                         Player1Board.get(zrow)[zcol] = true;
                     }
                     else
                     {
                         //w.w("Storing into Player 2");
+                        Player1Ints[zrow][zcol][NUM_CLICKS - 1] = NUM_CLICKS; 
                         Player2Board.get(zrow)[zcol] = true;
                     }
             }
@@ -108,8 +120,11 @@ public class Board {
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     if(Player2Board.get(zrow)[zcol] == false)
                     {
-                        winner = Player.getOtherPlayer();
-                        w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for Black");
+                        Player.getOtherPlayer().addPoints(1);
+                        Player.switchTurn();
+                        Board.Reset();
+                        return;
+                        //w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for Black");
                     }
                 }
                 if(Player.getCurrentPlayer().getColor() == Color.RED)
@@ -117,8 +132,11 @@ public class Board {
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     if(Player1Board.get(zrow)[zcol] == false)
                     {
-                        winner = Player.getOtherPlayer();
-                        w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for RED");
+                       Player.getOtherPlayer().addPoints(1);
+                       Player.switchTurn();
+                       Board.Reset();
+                       return;
+                        //w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for RED");
                     }
                 }
                 
@@ -136,14 +154,24 @@ public class Board {
                       // NUM_ROWS++;
                         //NUM_COLUMNS++;
                        /// resetBoard = true;
-                        Player.getCurrentPlayer().setInSelection(false);
-                        if(!Piece.delay)
+                       Player.getCurrentPlayer().setInSelection(false);
+                       if(Player.getCurrentPlayer().getAllDone() && Player.getOtherPlayer().getAllDone())
+                       {NUM_ROWS++;
+                        NUM_COLUMNS++;
+                        Player.getCurrentPlayer().setInSelection(true);
+                        Player.getOtherPlayer().setInSelection(true);
+                        Player.getCurrentPlayer().setAllDone(false);
+                        Player.getOtherPlayer().setAllDone(false);
+                        ChangePlayerBoard(NUM_ROWS);
+                       }
+                        
+                        
                         {
                             ChangeBoardSize(NUM_ROWS);
-                            w.w("reseting board");
+                            //w.w("reseting board");
                         }
                         
-                        //ChangePlayerBoard(NUM_ROWS);
+                        
                         w.w("Rows " + NUM_ROWS);
                         w.w("Columns " + NUM_COLUMNS);
                         Piece.delay = true;
