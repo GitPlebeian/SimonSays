@@ -118,7 +118,7 @@ public class Board {
                 if(Player.getCurrentPlayer().getColor() == Color.BLACK)
                 {
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
-                    if(Player2Board.get(zrow)[zcol] == false)
+                    if(Player2Board.get(zrow)[zcol] == false || (Player2Board.get(zrow)[zcol] == true && Player1Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS))
                     {
                         Player.getOtherPlayer().addPoints(1);
                         Player.switchTurn();
@@ -130,7 +130,7 @@ public class Board {
                 if(Player.getCurrentPlayer().getColor() == Color.RED)
                 {
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
-                    if(Player1Board.get(zrow)[zcol] == false)
+                    if(Player1Board.get(zrow)[zcol] == false || (Player2Board.get(zrow)[zcol] == true && Player1Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS))
                     {
                        Player.getOtherPlayer().addPoints(1);
                        Player.switchTurn();
@@ -145,6 +145,10 @@ public class Board {
                     Player.getCurrentPlayer().setAllDone(true);
                 }
             }
+            if(Player.getCurrentPlayer().getPoints() == 5)
+                winner = Player.getCurrentPlayer();
+            if(Player.getOtherPlayer().getPoints() == 5)
+                winner = Player.getOtherPlayer();
                     if(NUM_CLICKS >= NUM_ROWS)
                     { 
                       

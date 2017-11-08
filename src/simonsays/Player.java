@@ -9,6 +9,7 @@ public class Player {
     private Color color;
     private boolean inSelection;
     private boolean allDone;
+    public static int startingTurn = 0;
 
        
 
@@ -17,13 +18,20 @@ public class Player {
             players[0] = new Player(Color.black);
             players[1] = new Player(Color.red);
         }
-        currentTurn = players[0];
+        currentTurn = players[startingTurn];
     }
     Player(Color _color) {
         points = 0;
         color = _color;
         inSelection = true;
         allDone = false;
+    }
+    public static void setCurrentTurn(){
+        if(startingTurn == 0)
+            startingTurn = 1;
+        if(startingTurn == 1)
+            startingTurn = 0;
+        currentTurn = players[startingTurn];
     }
     public void setInSelection(boolean bool){
         inSelection = bool;
