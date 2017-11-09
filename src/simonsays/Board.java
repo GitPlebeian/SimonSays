@@ -7,8 +7,8 @@ public class Board {
     private final static int NUM_CONNECT_WIN = 4;    
     
 
-    public static int NUM_ROWS = 5;
-    private static int NUM_COLUMNS = 5;      
+    public static int NUM_ROWS = 3;
+    private static int NUM_COLUMNS = 3;      
     private static int NUM_CLICKS = 0;
     private static boolean gameOver = false;
     public static boolean resetBoard;
@@ -23,8 +23,8 @@ public class Board {
     private static Player winner = null;
     
     public static void Reset() {
-        NUM_ROWS = 3;
-        NUM_COLUMNS = 3;
+        NUM_ROWS = 4;
+        NUM_COLUMNS = 4;
         //w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
         //winner = null;

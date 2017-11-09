@@ -12,7 +12,12 @@ public class SimonSays extends JFrame implements Runnable {
     Image image;
     Graphics2D g;
     static int timeCount=0;
+
     static boolean clicked = false;
+
+    private boolean drawBoard = false;
+    private boolean drawInstruction =false;
+
 
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
@@ -66,8 +71,13 @@ public class SimonSays extends JFrame implements Runnable {
 
             public void keyPressed(KeyEvent e) {
                 if (e.VK_UP == e.getKeyCode()) {
-                } else if (e.VK_DOWN == e.getKeyCode()) {
-                } else if (e.VK_LEFT == e.getKeyCode()) {
+                } else if (e.VK_ENTER == e.getKeyCode()) {
+                    drawBoard=true;
+                    drawInstruction=false;
+                    
+                } else if (e.VK_I == e.getKeyCode()) {
+                    drawInstruction = true;
+                    drawBoard=false;
                 } else if (e.VK_RIGHT == e.getKeyCode()) {
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
                     reset();
@@ -96,6 +106,7 @@ public class SimonSays extends JFrame implements Runnable {
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
         }
+if(drawBoard){       
 //fill background
         
         g.setColor(Color.cyan);
@@ -109,14 +120,21 @@ public class SimonSays extends JFrame implements Runnable {
 // draw border
         g.setColor(Color.red);
         g.drawPolyline(x, y, 5);
-
+}
         if (animateFirstTime) {
             gOld.drawImage(image, 0, 0, null);
             return;
         }
         
-              
-        Board.Draw(g,timeCount);
+        if(!drawBoard && !drawInstruction)
+            Menu.draw(g);
+        
+        if(drawInstruction)
+            Menu.drawInstruction(g);
+            
+        
+        if(drawBoard)     
+            Board.Draw(g,timeCount);
         
 
         gOld.drawImage(image, 0, 0, null);
