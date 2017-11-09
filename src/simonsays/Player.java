@@ -27,10 +27,12 @@ public class Player {
         allDone = false;
     }
     public static void setCurrentTurn(){
+        w.w("starting value "+startingTurn);
         if(startingTurn == 0)
             startingTurn = 1;
-        if(startingTurn == 1)
+        else if(startingTurn == 1)
             startingTurn = 0;
+        w.w("current Turn "+startingTurn);
         currentTurn = players[startingTurn];
     }
     public void setInSelection(boolean bool){

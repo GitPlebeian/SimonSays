@@ -27,7 +27,7 @@ public class Board {
         NUM_COLUMNS = 3;
         //w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
-        winner = null;
+        //winner = null;
         Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
         Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
         ChangeBoardSize(NUM_ROWS);
@@ -39,12 +39,14 @@ public class Board {
         
         
     }
+    
         public static void ChangePlayerBoard(int size){
             Player1Board.clear();
             Player2Board.clear();
-            for(int i = 0;i < NUM_ROWS;i++)
+            for(int i = 0;i < size;i++)
             {   
-                PlayerADD(NUM_COLUMNS);
+               
+                PlayerADD(size);
             }
             Player1Ints = new int[size][size][size];
             Player2Ints = new int[size][size][size];
@@ -74,7 +76,7 @@ public class Board {
         if (winner != null)
             return;
         NUM_CLICKS++;
-        
+        //w.w("");
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
 
@@ -95,21 +97,33 @@ public class Board {
             //w.w("Columns = " + zcol);
             
             //w.w("PlayerBoard row size = " + PlayerBoard.size());
-            if (PlayerBoard.get(zrow)[zcol] == null && (Player.getCurrentPlayer().getInSelection() || Player.getOtherPlayer().getInSelection()))
+            if (Player.getCurrentPlayer().getInSelection() && Player.getCurrentPlayer().getColor() == Color.BLACK)
             { 
                // w.w("MADE IT");
-                    
+                    w.w("Zrow: "+zrow+" Zcol: "+zcol);
+                    w.w(""+PlayerBoard.size());
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
                     if(Player.getCurrentPlayer().getColor() == Color.BLACK)
                     {
+                        w.w("Setting Player 1 at: "+zrow+zcol+"  Clicks: "+NUM_CLICKS);
                         //w.w("Storing into Player 1");
                         Player1Ints[zrow][zcol][NUM_CLICKS - 1] = NUM_CLICKS;       
                         Player1Board.get(zrow)[zcol] = true;
                     }
-                    else
+                    
+            }
+            //w.w(""+Player.getCurrentPlayer().getInSelection());
+            if(Player.getCurrentPlayer().getInSelection() && Player.getCurrentPlayer().getColor() == Color.RED)
+            { 
+               // w.w("MADE IT");
+                    
+                    PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
+                    
+                    
                     {
+                        w.w("Setting Player 2 at: "+zrow+zcol+"  Clicks: "+NUM_CLICKS);
                         //w.w("Storing into Player 2");
-                        Player1Ints[zrow][zcol][NUM_CLICKS - 1] = NUM_CLICKS; 
+                        Player2Ints[zrow][zcol][NUM_CLICKS - 1] = NUM_CLICKS; 
                         Player2Board.get(zrow)[zcol] = true;
                     }
             }
@@ -118,10 +132,17 @@ public class Board {
                 if(Player.getCurrentPlayer().getColor() == Color.BLACK)
                 {
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
-                    if(Player2Board.get(zrow)[zcol] == false || (Player2Board.get(zrow)[zcol] == true && Player1Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS))
+                    w.w("Player 1 guess int at: "+zrow+zcol+" " + Player2Ints[zrow][zcol][NUM_CLICKS - 1]);
+                    if((Player2Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS))
                     {
+                        w.w("Player 1 has lost this round.");
                         Player.getOtherPlayer().addPoints(1);
-                        Player.switchTurn();
+                        Player.setCurrentTurn();
+                        //Player.switchTurn();
+                        if(Player.getCurrentPlayer().getPoints() == 5)
+                winner = Player.getCurrentPlayer();
+                        
+                          
                         Board.Reset();
                         return;
                         //w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for Black");
@@ -130,10 +151,14 @@ public class Board {
                 if(Player.getCurrentPlayer().getColor() == Color.RED)
                 {
                     PlayerBoard.get(zrow)[zcol] = new Piece(Player.getCurrentPlayer().getColor());
-                    if(Player1Board.get(zrow)[zcol] == false || (Player2Board.get(zrow)[zcol] == true && Player1Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS))
+                    if(Player1Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS)
                     {
+                       w.w("Player 2 has lost this round.");
                        Player.getOtherPlayer().addPoints(1);
-                       Player.switchTurn();
+                        Player.setCurrentTurn();
+                       //Player.switchTurn();
+                       if(Player.getOtherPlayer().getPoints() == 5)
+                winner = Player.getOtherPlayer();
                        Board.Reset();
                        return;
                         //w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for RED");
@@ -145,44 +170,68 @@ public class Board {
                     Player.getCurrentPlayer().setAllDone(true);
                 }
             }
-            if(Player.getCurrentPlayer().getPoints() == 5)
-                winner = Player.getCurrentPlayer();
-            if(Player.getOtherPlayer().getPoints() == 5)
-                winner = Player.getOtherPlayer();
+            
+            
                     if(NUM_CLICKS >= NUM_ROWS)
                     { 
                       
-                        
-                        Player.switchTurn();
-                        NUM_CLICKS = 0;
+                        w.w("");
+                       Player.getCurrentPlayer().setInSelection(false); 
+                       
                       // NUM_ROWS++;
                         //NUM_COLUMNS++;
                        /// resetBoard = true;
-                       Player.getCurrentPlayer().setInSelection(false);
-                       if(Player.getCurrentPlayer().getAllDone() && Player.getOtherPlayer().getAllDone())
-                       {NUM_ROWS++;
-                        NUM_COLUMNS++;
-                        Player.getCurrentPlayer().setInSelection(true);
-                        Player.getOtherPlayer().setInSelection(true);
-                        Player.getCurrentPlayer().setAllDone(false);
-                        Player.getOtherPlayer().setAllDone(false);
-                        ChangePlayerBoard(NUM_ROWS);
-                       }
+                       
+//                       if(Player.getCurrentPlayer().getAllDone() && Player.getOtherPlayer().getAllDone())
+//                       {NUM_ROWS++;
+//                        NUM_COLUMNS++;
+//                        Player.getCurrentPlayer().setInSelection(true);
+//                        Player.getOtherPlayer().setInSelection(true);
+//                        Player.getCurrentPlayer().setAllDone(false);
+//                        Player.getOtherPlayer().setAllDone(false);
+//                        ChangePlayerBoard(NUM_ROWS);
+//                       }
                         
                         
                         {
-                            ChangeBoardSize(NUM_ROWS);
+                            //ChangeBoardSize(NUM_ROWS);
                             //w.w("reseting board");
                         }
                         
                         
-                        w.w("Rows " + NUM_ROWS);
-                        w.w("Columns " + NUM_COLUMNS);
+                       // w.w("Rows " + NUM_ROWS);
+                       // w.w("Columns " + NUM_COLUMNS);
                         Piece.delay = true;
                     }
                          
             
             
+        }
+    }
+    public static void Destroy(){
+        for(int i = 0; i<PlayerBoard.size();i++)
+        {
+            for(int k = 0;k<PlayerBoard.get(i).length;k++)
+            {
+                PlayerBoard.get(i)[k] = null;
+            }
+        }
+        if(NUM_CLICKS >= NUM_ROWS)
+        {
+            Player.switchTurn();
+            NUM_CLICKS = 0;
+            if(Player.getCurrentPlayer().getAllDone() && Player.getOtherPlayer().getAllDone())
+                       {
+                           NUM_ROWS++;
+                        NUM_COLUMNS++;
+                        Player.getCurrentPlayer().setInSelection(true);
+                        Player.getOtherPlayer().setInSelection(true);
+                        Player.getCurrentPlayer().setAllDone(false);
+                        Player.getOtherPlayer().setAllDone(false);
+                        w.w("Changing Board Size: " + NUM_ROWS);
+                        ChangePlayerBoard(NUM_ROWS);
+                        ChangeBoardSize(NUM_ROWS);
+                       }
         }
     }
 
