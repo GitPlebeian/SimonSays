@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.*;
+import static simonsays.Board.NUM_ROWS;
 
 public class Menu {
     private String play;
@@ -14,13 +15,17 @@ public class Menu {
     private int yPos;
     private Color buttonColor;
     private Color backGroundColor;
+    static boolean changeColor = false;
 
     public static void drawButton(Graphics2D g){
         double xscale = 0.0;
         double yscale = 0.0;
         //g.fillRect(Window.WINDOW_WIDTH/2-60, Window.WINDOW_HEIGHT/2 + 60, 150, 50);
         g.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 18));
-        g.setColor(Color.red);
+        if(changeColor)
+            g.setColor(Color.white);
+        else
+            g.setColor(Color.red);
         g.drawString("Click here to play!", Window.WINDOW_WIDTH/2-105, Window.WINDOW_HEIGHT/2+30);
     }
      public static void drawHelpButton(Graphics2D g){
@@ -33,6 +38,20 @@ public class Menu {
         g.setColor(Color.red);
         g.drawString("Choose difficulty!", Window.WINDOW_WIDTH-Window.WINDOW_WIDTH/2+Window.WINDOW_WIDTH/10, Window.WINDOW_HEIGHT-Window.WINDOW_HEIGHT/4);
      }
+      public static boolean AddPiecePixel(int xpixel,int ypixel,Graphics2D g) {
+          //System.out.println("" + xpixel);
+          // System.out.println("" + ypixel);
+          if (xpixel > 219
+              && xpixel <  434
+              && ypixel > 339
+              && ypixel  < 356){ 
+          //System.out.println("IM INNNNNN");
+          changeColor = true;
+          return true;
+          }
+          changeColor = false;
+          return false;
+      }
 
     
     public static void draw(Graphics2D g){

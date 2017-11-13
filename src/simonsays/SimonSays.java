@@ -37,12 +37,17 @@ public class SimonSays extends JFrame implements Runnable {
                         //w.w("Clicking");
                         
                         Board.AddPiecePixel(e.getX(),e.getY(),g);
+                        Menu.AddPiecePixel(e.getX(),e.getY(), g);
                         clicked = true;
                         timeCount = 0;
                     }
-                    
-                    
-                    
+                    if(!drawBoard)
+                    Menu.AddPiecePixel(e.getX(),e.getY(), g);
+                    if(Menu.AddPiecePixel(e.getX(),e.getY(), g)){
+                        drawBoard = true;
+                        drawInstruction=false;
+                    }
+                    Menu.changeColor = false;
                     
                 }
 
