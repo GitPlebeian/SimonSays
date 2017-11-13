@@ -267,28 +267,29 @@ public class Board {
         } 
         
         g.setFont(new Font("Arial",Font.PLAIN,20));
-        g.setColor(Player.getPlayer1().getColor());
+        g.setColor(Color.LIGHT_GRAY);
         g.drawString("Player1 = " + Player.getPlayer1().getPoints(), 25,70);              
-        g.setColor(Player.getPlayer2().getColor());
+        g.setColor(Color.LIGHT_GRAY);
         g.drawString("Player2 = " + Player.getPlayer2().getPoints(), 520,70);              
         
         if (winner == Player.getPlayer1()) {
-            g.setColor(Player.getPlayer1().getColor());
+            g.setColor(Color.LIGHT_GRAY);
             g.setFont(new Font("Arial",Font.PLAIN,30));
             g.drawString("Player 1 has Won", 200,70);              
         }
         else if (winner == Player.getPlayer2()) {
-            g.setColor(Player.getPlayer2().getColor());
+            g.setColor(Color.LIGHT_GRAY);
             g.setFont(new Font("Arial",Font.PLAIN,30));
             g.drawString("Player 2 has Won", 200,70);              
         }
         else {
-            g.setColor(Player.getCurrentPlayer().getColor());
+            g.setColor(Color.LIGHT_GRAY);
             g.setFont(new Font("Arial",Font.PLAIN,30));
-            if (Player.getCurrentPlayer() == Player.getPlayer1())
-                g.drawString("Player 1's turn", 200,70);              
-            else
-                g.drawString("Player 2's turn", 200,70);              
+            if (Player.getCurrentPlayer() == Player.getPlayer1() && Player.getPlayer1().getInSelection())
+                g.drawString("Player 1's Selection", 200,60);              
+            else if(Player.getCurrentPlayer() == Player.getPlayer1() && Player.getPlayer2().getInSelection())
+                g.drawString("Player 2's Selection", 200,60); 
+            
       }
         
     }

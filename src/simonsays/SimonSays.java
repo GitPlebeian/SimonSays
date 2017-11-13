@@ -120,7 +120,7 @@ public class SimonSays extends JFrame implements Runnable {
 if(drawBoard){       
 //fill background
         
-        g.setColor(Color.cyan);
+        g.setColor(Player.getCurrentPlayer().getColor());
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 
         int x[] = {Window.getX(0), Window.getX(Window.getWidth2()), Window.getX(Window.getWidth2()), Window.getX(0), Window.getX(0)};
