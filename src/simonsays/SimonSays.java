@@ -14,7 +14,6 @@ public class SimonSays extends JFrame implements Runnable {
     static int timeCount=0;
 
     static boolean clicked = false;
-
     private boolean drawBoard = false;
     private boolean drawInstruction =false;
 
@@ -32,9 +31,11 @@ public class SimonSays extends JFrame implements Runnable {
 
                 if (e.BUTTON1 == e.getButton() ) {
                     
-                    if(clicked == false)
+                    if(clicked == false && drawBoard)
                     {
+                        
                         //w.w("Clicking");
+                        
                         Board.AddPiecePixel(e.getX(),e.getY(),g);
                         clicked = true;
                         timeCount = 0;
@@ -78,8 +79,13 @@ public class SimonSays extends JFrame implements Runnable {
                 } else if (e.VK_I == e.getKeyCode()) {
                     drawInstruction = true;
                     drawBoard=false;
-                } else if (e.VK_RIGHT == e.getKeyCode()) {
+                } else if (e.VK_Q == e.getKeyCode()) {
+                          drawInstruction = false;
+                    drawBoard=false;
+                    
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
+                    drawInstruction = false;
+                    drawBoard=false;
                     reset();
                 }
                 repaint();
