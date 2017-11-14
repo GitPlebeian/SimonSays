@@ -17,7 +17,7 @@ public class SimonSays extends JFrame implements Runnable {
     private boolean drawBoard = false;
     private boolean drawInstruction =false;
     private boolean drawDifficulty =false;
-
+//
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
         frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
