@@ -205,6 +205,11 @@ if(drawBoard){
         clicked = false;
         Board.Destroy();
     }
+    if(timeCount % 12 == 11)
+    {
+        Board.p1p = false;
+        Board.p2p = false;
+    }
        
     }
 

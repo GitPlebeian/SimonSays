@@ -19,7 +19,8 @@ public class Board {
      
     private static int[][][] Player1Ints = new int[1][1][1];
     private static int[][][] Player2Ints = new int[1][1][1];
-    
+    public static boolean p1p = false;
+    public static boolean p2p = false;
     private static Player winner = null;
     
     public static void Reset() {
@@ -136,6 +137,7 @@ public class Board {
                     if((Player2Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS))
                     {
                         w.w("Player 1 has lost this round.");
+                        p1p = true;
                         Player.getOtherPlayer().addPoints(1);
                         Player.setCurrentTurn();
                         //Player.switchTurn();
@@ -154,6 +156,7 @@ public class Board {
                     if(Player1Ints[zrow][zcol][NUM_CLICKS - 1] != NUM_CLICKS)
                     {
                        w.w("Player 2 has lost this round.");
+                       p2p = true;
                        Player.getOtherPlayer().addPoints(1);
                         Player.setCurrentTurn();
                        //Player.switchTurn();
@@ -268,10 +271,23 @@ public class Board {
         
         g.setFont(new Font("Arial",Font.PLAIN,20));
         g.setColor(Color.LIGHT_GRAY);
-        g.drawString("Player1 = " + Player.getPlayer1().getPoints(), 25,70);              
+        g.drawString("Player1 = " + Player.getPlayer1().getPoints(), 25,60);              
         g.setColor(Color.LIGHT_GRAY);
-        g.drawString("Player2 = " + Player.getPlayer2().getPoints(), 520,70);              
-        
+        g.drawString("Player2 = " + Player.getPlayer2().getPoints(), 520,60);              
+        if(p1p)
+        {
+            g.setColor(Player.getPlayer2().getColor());
+            g.setFont(new Font("Arial",Font.BOLD,60));
+            g.drawString("Player 2 Won Round", 40,400);              
+
+        }
+        if(p2p)
+        {
+            g.setColor(Player.getPlayer1().getColor());
+            g.setFont(new Font("Arial",Font.BOLD,60));
+            g.drawString("Player 1 Won Round", 40,400);              
+
+        }
         if (winner == Player.getPlayer1()) {
             g.setColor(Color.LIGHT_GRAY);
             g.setFont(new Font("Arial",Font.PLAIN,30));
@@ -287,8 +303,12 @@ public class Board {
             g.setFont(new Font("Arial",Font.PLAIN,30));
             if (Player.getCurrentPlayer() == Player.getPlayer1() && Player.getPlayer1().getInSelection())
                 g.drawString("Player 1's Selection", 200,60);              
-            else if(Player.getCurrentPlayer() == Player.getPlayer1() && Player.getPlayer2().getInSelection())
-                g.drawString("Player 2's Selection", 200,60); 
+            else if(Player.getCurrentPlayer() == Player.getPlayer2() && Player.getPlayer2().getInSelection())
+                g.drawString("Player 2's Selection", 200,60);
+            else if(Player.getCurrentPlayer() == Player.getPlayer1() && !Player.getPlayer1().getInSelection())
+                g.drawString("Player 1's Guessing", 200,60); 
+            else if(Player.getCurrentPlayer() == Player.getPlayer2() && !Player.getPlayer2().getInSelection())
+                g.drawString("Player 2's Guessing", 200,60); 
             
       }
         
