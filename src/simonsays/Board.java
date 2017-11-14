@@ -8,7 +8,7 @@ public class Board {
     
 
     public static int NUM_ROWS = 3;
-    private static int NUM_COLUMNS = 3;      
+    public static int NUM_COLUMNS = 3;      
     private static int NUM_CLICKS = 0;
     private static boolean gameOver = false;
     public static boolean resetBoard;
@@ -26,6 +26,22 @@ public class Board {
     public static void Reset() {
         NUM_ROWS = 4;
         NUM_COLUMNS = 4;
+        //w.w("RESETING BOARD!");
+        NUM_CLICKS = 0;
+        //winner = null;
+        Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
+        Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
+        ChangeBoardSize(NUM_ROWS);
+        ChangePlayerBoard(NUM_ROWS);
+        Player.getCurrentPlayer().setInSelection(true);
+                        Player.getOtherPlayer().setInSelection(true);
+                        Player.getCurrentPlayer().setAllDone(false);
+                        Player.getOtherPlayer().setAllDone(false);
+        
+        
+    }
+        public static void Reset2() {
+
         //w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
         //winner = null;

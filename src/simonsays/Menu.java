@@ -133,14 +133,12 @@ public class Menu {
 
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 40));
-        g.drawString("Click a Number 1-9", Window.WINDOW_WIDTH/2-Window.WINDOW_WIDTH/2+Window.WINDOW_WIDTH/6, Window.WINDOW_HEIGHT/4+20);
+        g.drawString("Click a Number 3-9", Window.WINDOW_WIDTH/2-Window.WINDOW_WIDTH/2+Window.WINDOW_WIDTH/6, Window.WINDOW_HEIGHT/2);
         
         choose = true;
         
 
     }
-//    public static void checkChoose(){
-//        if()
-//    }
+
 
 }

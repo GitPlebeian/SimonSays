@@ -84,23 +84,88 @@ public class SimonSays extends JFrame implements Runnable {
 
             public void keyPressed(KeyEvent e) {
                 if (e.VK_UP == e.getKeyCode()) {
-                } else if (e.VK_ENTER == e.getKeyCode()) {
-                    drawBoard=true;
-                    drawInstruction=false;
+//                } else if (e.VK_ENTER == e.getKeyCode()) {
+//                    drawBoard=true;
+//                    drawInstruction=false;
                     
                 } else if (e.VK_I == e.getKeyCode()) {
                     drawInstruction = true;
                     drawBoard=false;
-                } else if (e.VK_Q == e.getKeyCode()) {
-                          drawInstruction = false;
-                    drawBoard=false;
-                    drawDifficulty = false;
+//                } else if (e.VK_Q == e.getKeyCode()) {
+//                          drawInstruction = false;
+//                    drawBoard=false;
+//                    drawDifficulty = false;
                     
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
                     drawInstruction = false;
                     drawBoard=false;
                     drawDifficulty = false;
                     reset();
+                }
+                else if (e.VK_3 == e.getKeyCode()) {
+                    if(drawDifficulty){
+                      Board.NUM_ROWS = 3;
+                      System.out.println(Board.NUM_ROWS);
+                      Board.NUM_COLUMNS = 3;         
+                    Board.Reset2();
+                      drawBoard = true;
+                      drawDifficulty = false;
+                    }
+                }
+                else if (e.VK_4 == e.getKeyCode()) {
+                    if(drawDifficulty){
+                    Board.NUM_ROWS = 4;
+                    Board.NUM_COLUMNS = 4;         
+                    Board.Reset2();
+                      drawBoard = true;
+                      drawDifficulty = false;
+                    }
+                }
+                else if (e.VK_5 == e.getKeyCode()) {
+                    if(drawDifficulty){
+                    Board.NUM_ROWS = 5;
+                    Board.NUM_COLUMNS = 5;         
+                    Board.Reset2();
+                      drawBoard = true;
+                      drawDifficulty = false;
+                    }
+                }
+                else if (e.VK_6 == e.getKeyCode()) {
+                    if(drawDifficulty){
+                    Board.NUM_ROWS = 6;
+                      Board.NUM_COLUMNS = 6;         
+                    Board.Reset2();
+                    drawBoard = true;
+                      drawDifficulty = false;
+                    }
+                }
+                else if (e.VK_7 == e.getKeyCode()) {
+                    if(drawDifficulty){
+                    Board.NUM_ROWS = 7;
+                    Board.NUM_COLUMNS = 7;         
+                    Board.Reset2();
+                      drawBoard = true;
+                      drawDifficulty = false;
+                    }
+                }
+                else if (e.VK_8 == e.getKeyCode()) {
+                    if(drawDifficulty){
+                    Board.NUM_ROWS = 8;
+                    Board.NUM_COLUMNS = 8;         
+                    Board.Reset2();
+                    
+                      drawBoard = true;
+                      drawDifficulty = false;
+                    }
+                }
+                else if (e.VK_9 == e.getKeyCode()) {
+                    if(drawDifficulty){
+                    Board.NUM_ROWS = 9;
+                    Board.NUM_COLUMNS = 9;         
+                    Board.Reset2();
+                      drawBoard = true;
+                      drawDifficulty = false;
+                    }
                 }
                 repaint();
             }
@@ -156,7 +221,7 @@ if(drawBoard){
             Menu.drawDifficulty(g);
         
         if(drawBoard)     
-            Board.Draw(g,timeCount);
+           Board.Draw(g,timeCount);
         
 
         gOld.drawImage(image, 0, 0, null);
