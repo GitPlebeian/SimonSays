@@ -31,20 +31,21 @@ public class Menu {
      public static void drawHelpButton(Graphics2D g){
         g.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 18));
         g.setColor(Color.red);
-        g.drawString("Instructions!", Window.WINDOW_WIDTH/4-Window.WINDOW_WIDTH/10, Window.WINDOW_HEIGHT-Window.WINDOW_HEIGHT/4);
+        g.drawString("Click "+ " 'i'", Window.WINDOW_WIDTH/4-Window.WINDOW_WIDTH/10, Window.WINDOW_HEIGHT-Window.WINDOW_HEIGHT/4);
+        g.drawString(" for Instructions!", Window.WINDOW_WIDTH/4-Window.WINDOW_WIDTH/6, Window.WINDOW_HEIGHT-Window.WINDOW_HEIGHT/5-Window.WINDOW_HEIGHT/38);
      }
      public static void drawStartButton(Graphics2D g){
         g.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 18));
         g.setColor(Color.red);
         g.drawString("Choose difficulty!", Window.WINDOW_WIDTH-Window.WINDOW_WIDTH/2+Window.WINDOW_WIDTH/10, Window.WINDOW_HEIGHT-Window.WINDOW_HEIGHT/4);
      }
-      public static boolean AddPiecePixel(int xpixel,int ypixel,Graphics2D g) {
+      public static boolean AddPiecePixel(int xpixel,int ypixel) {
           //System.out.println("" + xpixel);
           // System.out.println("" + ypixel);
           if (xpixel > 219
               && xpixel <  434
-              && ypixel > 339
-              && ypixel  < 356){ 
+              && ypixel > 320
+              && ypixel  < 365){ 
           //System.out.println("IM INNNNNN");
           changeColor = true;
           return true;
@@ -52,7 +53,21 @@ public class Menu {
           changeColor = false;
           return false;
       }
-
+     public static boolean AddPiecePixelDifficulty(int xpixel,int ypixel) {
+         //System.out.println("" + xpixel);
+         //System.out.println("" + ypixel);
+         if (xpixel > 393
+              && xpixel < 599
+              && ypixel > 455
+              && ypixel  < 492){ 
+            // System.out.println("IM INNNNNN");
+            return true;
+         }
+         
+         
+         
+         return false;
+     }
     
     public static void draw(Graphics2D g){
         g.setColor(Color.white);
@@ -85,6 +100,27 @@ public class Menu {
         
 //fill background
         g.setColor(Color.white);
+        g.fillRect(0, 0, Window.xsize, Window.ysize);
+
+        int x[] = {Window.getX(0), Window.getX(Window.getWidth2()), Window.getX(Window.getWidth2()), Window.getX(0), Window.getX(0)};
+        int y[] = {Window.getY(0), Window.getY(0), Window.getY(Window.getHeight2()), Window.getY(Window.getHeight2()), Window.getY(0)};
+//fill border
+        g.setColor(Color.black);
+        g.fillPolygon(x, y, 4);
+// draw border
+        g.setColor(Color.white);
+        g.drawPolyline(x, y, 5);
+        
+
+        
+        
+
+    }
+    public static void drawDifficulty(Graphics2D g){
+
+        
+//fill background
+        g.setColor(Color.black);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 
         int x[] = {Window.getX(0), Window.getX(Window.getWidth2()), Window.getX(Window.getWidth2()), Window.getX(0), Window.getX(0)};

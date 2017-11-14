@@ -16,7 +16,7 @@ public class SimonSays extends JFrame implements Runnable {
     static boolean clicked = false;
     private boolean drawBoard = false;
     private boolean drawInstruction =false;
-
+    private boolean drawDifficulty =false;
 
     public static void main(String[] args) {
         SimonSays frame = new SimonSays();
@@ -37,13 +37,20 @@ public class SimonSays extends JFrame implements Runnable {
                         //w.w("Clicking");
                         
                         Board.AddPiecePixel(e.getX(),e.getY(),g);
-                        Menu.AddPiecePixel(e.getX(),e.getY(), g);
+                        
                         clicked = true;
                         timeCount = 0;
                     }
-                    if(!drawBoard)
-                    Menu.AddPiecePixel(e.getX(),e.getY(), g);
-                    if(Menu.AddPiecePixel(e.getX(),e.getY(), g)){
+                    if(!drawBoard && !drawInstruction){
+                    Menu.AddPiecePixel(e.getX(),e.getY());
+                    Menu.AddPiecePixelDifficulty(e.getX(),e.getY());
+                    }
+                    if(Menu.AddPiecePixelDifficulty(e.getX(),e.getY()) && !drawBoard){                                      
+                        drawDifficulty = true;
+                        drawInstruction=false;
+                        drawBoard = false;
+                    }
+                    if(Menu.AddPiecePixel(e.getX(),e.getY()) && !drawBoard && !drawInstruction){
                         drawBoard = true;
                         drawInstruction=false;
                     }
@@ -87,10 +94,12 @@ public class SimonSays extends JFrame implements Runnable {
                 } else if (e.VK_Q == e.getKeyCode()) {
                           drawInstruction = false;
                     drawBoard=false;
+                    drawDifficulty = false;
                     
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
                     drawInstruction = false;
                     drawBoard=false;
+                    drawDifficulty = false;
                     reset();
                 }
                 repaint();
@@ -143,6 +152,8 @@ if(drawBoard){
         if(drawInstruction)
             Menu.drawInstruction(g);
             
+        if(!drawInstruction && !drawBoard && drawDifficulty)
+            Menu.drawDifficulty(g);
         
         if(drawBoard)     
             Board.Draw(g,timeCount);
