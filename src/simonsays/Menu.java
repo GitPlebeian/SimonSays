@@ -16,6 +16,8 @@ public class Menu {
     private Color buttonColor;
     private Color backGroundColor;
     static boolean changeColor = false;
+    static boolean choose = false;
+
 
     public static void drawButton(Graphics2D g){
         double xscale = 0.0;
@@ -109,11 +111,7 @@ public class Menu {
         g.fillPolygon(x, y, 4);
 // draw border
         g.setColor(Color.white);
-        g.drawPolyline(x, y, 5);
-        
-
-        
-        
+        g.drawPolyline(x, y, 5);      
 
     }
     public static void drawDifficulty(Graphics2D g){
@@ -133,9 +131,16 @@ public class Menu {
         g.drawPolyline(x, y, 5);
         
 
+        g.setColor(Color.white);
+        g.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 40));
+        g.drawString("Click a Number 1-9", Window.WINDOW_WIDTH/2-Window.WINDOW_WIDTH/2+Window.WINDOW_WIDTH/6, Window.WINDOW_HEIGHT/4+20);
         
+        choose = true;
         
 
     }
+//    public static void checkChoose(){
+//        if()
+//    }
 
 }
