@@ -32,7 +32,7 @@ public class SimonSays extends JFrame implements Runnable {
 
                 if (e.BUTTON1 == e.getButton() ) {
                     
-                    if(clicked == false && drawBoard)
+                    if(clicked == false && drawBoard && (!Board.p1p && !Board.p2p))
                     {
                         
                         //w.w("Clicking");
