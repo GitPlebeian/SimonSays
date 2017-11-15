@@ -92,7 +92,7 @@ public class Board {
         
         if (winner != null)
             return;
-        NUM_CLICKS++;
+       
         //w.w("");
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
@@ -104,7 +104,7 @@ public class Board {
             ypixel-Window.getY(0) > 0 &&
             xpixel-Window.getX(0) < xdelta*NUM_COLUMNS &&
             ypixel-Window.getY(0) < ydelta*NUM_ROWS)
-        {
+        { NUM_CLICKS++;
             zcol = (xpixel-Window.getX(0))/xdelta;
             zrow = (ypixel-Window.getY(0))/ydelta;
 

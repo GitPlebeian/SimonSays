@@ -23,6 +23,7 @@ public class SimonSays extends JFrame implements Runnable {
         frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        Instructions m = new Instructions();
     }
 
     public SimonSays() {
@@ -223,6 +224,10 @@ if(drawBoard){
         if(drawBoard)     
            Board.Draw(g,timeCount);
         
+        if(!drawBoard && !drawInstruction && !drawDifficulty){
+            Instructions m = new Instructions();
+            Instructions.Draw(g);
+        }
 
         gOld.drawImage(image, 0, 0, null);
     }
