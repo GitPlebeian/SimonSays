@@ -107,7 +107,8 @@ public class SimonSays extends JFrame implements Runnable {
                     if(drawDifficulty){
                       Board.NUM_ROWS = 3;
                       System.out.println(Board.NUM_ROWS);
-                      Board.NUM_COLUMNS = 3;         
+                      Board.NUM_COLUMNS = 3;    
+                      Board.startingDifficulty = 3;
                     Board.Reset2();
                       drawBoard = true;
                       drawDifficulty = false;
@@ -116,7 +117,8 @@ public class SimonSays extends JFrame implements Runnable {
                 else if (e.VK_4 == e.getKeyCode()) {
                     if(drawDifficulty){
                     Board.NUM_ROWS = 4;
-                    Board.NUM_COLUMNS = 4;         
+                    Board.NUM_COLUMNS = 4;   
+                    Board.startingDifficulty = 4;
                     Board.Reset2();
                       drawBoard = true;
                       drawDifficulty = false;
@@ -125,7 +127,8 @@ public class SimonSays extends JFrame implements Runnable {
                 else if (e.VK_5 == e.getKeyCode()) {
                     if(drawDifficulty){
                     Board.NUM_ROWS = 5;
-                    Board.NUM_COLUMNS = 5;         
+                    Board.NUM_COLUMNS = 5;       
+                    Board.startingDifficulty = 5;
                     Board.Reset2();
                       drawBoard = true;
                       drawDifficulty = false;
@@ -134,7 +137,8 @@ public class SimonSays extends JFrame implements Runnable {
                 else if (e.VK_6 == e.getKeyCode()) {
                     if(drawDifficulty){
                     Board.NUM_ROWS = 6;
-                      Board.NUM_COLUMNS = 6;         
+                      Board.NUM_COLUMNS = 6;    
+                      Board.startingDifficulty = 6;
                     Board.Reset2();
                     drawBoard = true;
                       drawDifficulty = false;
@@ -143,7 +147,8 @@ public class SimonSays extends JFrame implements Runnable {
                 else if (e.VK_7 == e.getKeyCode()) {
                     if(drawDifficulty){
                     Board.NUM_ROWS = 7;
-                    Board.NUM_COLUMNS = 7;         
+                    Board.NUM_COLUMNS = 7;    
+                    Board.startingDifficulty = 7;
                     Board.Reset2();
                       drawBoard = true;
                       drawDifficulty = false;
@@ -152,7 +157,8 @@ public class SimonSays extends JFrame implements Runnable {
                 else if (e.VK_8 == e.getKeyCode()) {
                     if(drawDifficulty){
                     Board.NUM_ROWS = 8;
-                    Board.NUM_COLUMNS = 8;         
+                    Board.NUM_COLUMNS = 8;     
+                    Board.startingDifficulty = 8;
                     Board.Reset2();
                     
                       drawBoard = true;
@@ -162,7 +168,8 @@ public class SimonSays extends JFrame implements Runnable {
                 else if (e.VK_9 == e.getKeyCode()) {
                     if(drawDifficulty){
                     Board.NUM_ROWS = 9;
-                    Board.NUM_COLUMNS = 9;         
+                    Board.NUM_COLUMNS = 9;     
+                    Board.startingDifficulty = 9;
                     Board.Reset2();
                       drawBoard = true;
                       drawDifficulty = false;

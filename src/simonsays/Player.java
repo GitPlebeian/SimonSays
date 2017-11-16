@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Player {
     private static Player currentTurn;
     private static Player players[] = new Player[2];
-    private int points;
+    public int points;
     private Color color;
     private boolean inSelection;
     private boolean allDone;

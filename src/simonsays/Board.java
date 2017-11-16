@@ -22,13 +22,14 @@ public class Board {
     public static boolean p1p = false;
     public static boolean p2p = false;
     private static Player winner = null;
+    public static int startingDifficulty = 0;
     
     public static void Reset() {
         NUM_ROWS = 4;
         NUM_COLUMNS = 4;
         //w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
-        //winner = null;
+        winner = null;
         Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
         Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
         ChangeBoardSize(NUM_ROWS);
@@ -38,13 +39,17 @@ public class Board {
                         Player.getCurrentPlayer().setAllDone(false);
                         Player.getOtherPlayer().setAllDone(false);
         
-        
+        Player.startingTurn = 0;
+        Player.getPlayer1().points = 0;
+        Player.getPlayer2().points = 0;
     }
         public static void Reset2() {
 
         //w.w("RESETING BOARD!");
         NUM_CLICKS = 0;
         //winner = null;
+        NUM_ROWS = startingDifficulty;
+        NUM_COLUMNS = startingDifficulty;
         Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
         Player1Ints = new int[NUM_ROWS][NUM_ROWS][NUM_ROWS];
         ChangeBoardSize(NUM_ROWS);
@@ -155,13 +160,14 @@ public class Board {
                         w.w("Player 1 has lost this round.");
                         p1p = true;
                         Player.getOtherPlayer().addPoints(1);
+                        if(Player.getOtherPlayer().getPoints() >= 1)
+                winner = Player.getOtherPlayer();
                         Player.setCurrentTurn();
                         //Player.switchTurn();
-                        if(Player.getCurrentPlayer().getPoints() == 5)
-                winner = Player.getCurrentPlayer();
+                        
                         
                           
-                        Board.Reset();
+                        Board.Reset2();
                         return;
                         //w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for Black");
                     }
@@ -174,11 +180,12 @@ public class Board {
                        w.w("Player 2 has lost this round.");
                        p2p = true;
                        Player.getOtherPlayer().addPoints(1);
+                       if(Player.getOtherPlayer().getPoints() >= 1)
+                winner = Player.getOtherPlayer();
                         Player.setCurrentTurn();
                        //Player.switchTurn();
-                       if(Player.getOtherPlayer().getPoints() == 5)
-                winner = Player.getOtherPlayer();
-                       Board.Reset();
+                       
+                       Board.Reset2();
                        return;
                         //w.w("Printing a LOOOOOOOSE!!!!!!!!!!!! for RED");
                     }
@@ -305,14 +312,14 @@ public class Board {
 
         }
         if (winner == Player.getPlayer1()) {
-            g.setColor(Color.LIGHT_GRAY);
-            g.setFont(new Font("Arial",Font.PLAIN,30));
-            g.drawString("Player 1 has Won", 200,70);              
+            g.setColor(winner.getColor());
+            g.setFont(new Font("Arial",Font.PLAIN,40));
+            g.drawString("Player 1 has Won", 170,200);              
         }
         else if (winner == Player.getPlayer2()) {
-            g.setColor(Color.LIGHT_GRAY);
-            g.setFont(new Font("Arial",Font.PLAIN,30));
-            g.drawString("Player 2 has Won", 200,70);              
+            g.setColor(winner.getColor());
+            g.setFont(new Font("Arial",Font.PLAIN,40));
+            g.drawString("Player 2 has Won", 170,200);              
         }
         else {
             g.setColor(Color.LIGHT_GRAY);
